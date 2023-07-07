@@ -14,8 +14,11 @@ def canUnlockAll(boxes):
     index_list = []
 
     def get_values(lst):
+        length = len(boxes) - 1
         indexes = []
         for val in lst:
+            if val > length:
+                continue
             for i in range(len(boxes[val])):
                 indexes.append(boxes[val][i])
             indexes.append(val)
