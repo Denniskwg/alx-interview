@@ -28,15 +28,14 @@ def canUnlockAll(boxes):
     index_list = get_values(boxes[0])
 
     def compare_list(lst):
-        reference = []
+        ref = True
         sorted_list = sorted(lst)
-        for i in range(len(boxes)):
-            reference.append(i)
+        for i in range(1, len(boxes)):
+            if i not in sorted_list:
+                ref = False
+                break
 
-        if reference == sorted_list:
-            return True
-        else:
-            return False
+        return ref
 
     if compare_list(index_list):
         return True
