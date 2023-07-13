@@ -12,11 +12,22 @@ def minOperations(n):
     if n == 0:
         return 0
 
-    if n % 6 == 0:
-        return 5 + minOperations(n / 6)
-    elif n % 3 == 0:
-        return 3 + minOperations(n / 3)
-    elif n % 2 == 0:
-        return 2 + minOperations(n / 2)
+    operations = 0
+
+    while n % 6 == 0:
+        n /= 6
+        operations += 5
+
+    while n % 3 == 0:
+        n /= 3
+        operations += 3
+
+    while n % 2 == 0:
+        n /= 2
+        operations += 2
+
+    print(n)
+    if n <= 1:
+        return operations
     else:
         return 0
