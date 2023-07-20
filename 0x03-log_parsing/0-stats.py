@@ -2,9 +2,7 @@
 """0-stats defines a function main that reads stdin
 line by line and computes metrics
 """
-import sys
 import re
-from time import sleep
 
 
 def main():
@@ -31,7 +29,8 @@ def main():
     )
     pattern = '{}\\-{}{}{}{}\\s*'.format(fp[0], fp[1], fp[2], fp[3], fp[4])
     try:
-        for line in sys.stdin:
+        while True:
+            line = input()
             if bool(re.match(pattern, line)):
                 if count % 10 == 0 and count > 0:
                     count = 0
@@ -55,7 +54,6 @@ def main():
         for key, value in status_codes.items():
             if value > 0:
                 print("{}: {}".format(key, value))
-        raise
 
 
 if __name__ == "__main__":
