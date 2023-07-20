@@ -26,7 +26,8 @@ def main():
     try:
         for line in sys.stdin:
             if bool(re.match(pattern, line)):
-                if count > 0 and count % 10 == 0:
+                if count % 10 == 0 and count > 0:
+                    count = 0
                     print('File size: {}'.format(size))
                     for key, value in status_codes.items():
                         if value > 0:
@@ -37,11 +38,12 @@ def main():
                     size = size + file
                     code = int(lst[-2])
                     if type(code) is int:
-                        status_codes = {key: value + 1 if key == code else value for key, value in status_codes.items()}
-                count = count + 1
+                        if code in status_codes.keys():
+                            status_codes[code] += 1
+                    count = count + 1
             else:
                 continue
-    except KeyboardInterrupt:
+    except (KeyboardInterrupt, EOFError):
         print('File size: {}'.format(size))
         for key, value in status_codes.items():
             if value > 0:
