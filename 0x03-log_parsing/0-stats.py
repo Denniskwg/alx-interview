@@ -22,13 +22,13 @@ def main():
     count = 0
     lines = 0
     fp = (
-        r'\s*(?P<ip>\S+)\s*',
-        r'\s*\[(?P<date>\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+)\]',
-        r'\s*"(?P<request>[^"]*)"\s*',
-        r'\s*(?P<status_code>\S+)',
-        r'\s*(?P<file_size>\d+)'
+        r'^(\S+)',
+        r'\[.*\]',
+        r'"GET /projects/\d+ HTTP/1\.1"',
+        r'\d+',
+        r'\d+$'
     )
-    pattern = '{}\\-{}{}{}{}\\s*'.format(fp[0], fp[1], fp[2], fp[3], fp[4])
+    pattern = r'{}\s?-\s?{} {} {} {}'.format(fp[0], fp[1], fp[2], fp[3], fp[4])
     try:
         while True:
             line = input()
@@ -47,7 +47,9 @@ def main():
                         status_codes[code] += 1
                 count = count + 1
             else:
-                continue
+                file_size = line.strip().split(' ')[-1]
+                if file_size.isdigit():
+                    size = size + int(file_size)
     except (KeyboardInterrupt, EOFError):
         print('File size: {}'.format(size))
         for key, value in status_codes.items():
