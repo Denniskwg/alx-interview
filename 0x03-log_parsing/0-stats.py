@@ -20,6 +20,7 @@ def main():
     }
     size = 0
     count = 0
+    lines = 0
     fp = (
         r'\s*(?P<ip>\S+)\s*',
         r'\s*\[(?P<date>\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+)\]',
@@ -33,20 +34,18 @@ def main():
             line = input()
             if bool(re.match(pattern, line)):
                 if count % 10 == 0 and count > 0:
-                    count = 0
                     print('File size: {}'.format(size))
                     for key, value in status_codes.items():
                         if value > 0:
                             print("{}: {}".format(key, value))
-                else:
-                    lst = line.strip().split(' ')
-                    file = int(lst[-1])
-                    size = size + file
-                    code = int(lst[-2])
-                    if type(code) is int:
-                        if code in status_codes.keys():
-                            status_codes[code] += 1
-                    count = count + 1
+                lst = line.strip().split(' ')
+                file = int(lst[-1])
+                size = size + file
+                code = int(lst[-2])
+                if type(code) is int:
+                    if code in status_codes.keys():
+                        status_codes[code] += 1
+                count = count + 1
             else:
                 continue
     except (KeyboardInterrupt, EOFError):
