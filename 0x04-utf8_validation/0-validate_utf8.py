@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""0-validate_utf8 defines a function validUTF8
+"""
 
 
 def validUTF8(data):
