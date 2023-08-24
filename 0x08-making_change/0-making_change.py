@@ -23,7 +23,7 @@ def makeChange(coins, total):
     for i in range(len(coins)):
         if remainder % coins[i] == 0:
             j = int(remainder / coins[i])
-            if i == 0:
+            if steps == 0:
                 steps = j
             if j < steps:
                 steps = j
