@@ -14,7 +14,7 @@ def makeChange(coins, total):
     largest = coins[0]
 
     for num in coins:
-        if num > largest:
+        if num > largest and num < total:
             largest = num
     remainder = total - largest
     if remainder == 0:
