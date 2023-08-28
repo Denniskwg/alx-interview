@@ -1,8 +1,5 @@
 #!/usr/bin/python3
-"""0-lockboxes defines a function canUnlockAll that
-loops over a list of lists and checks if each list
-has a value equivalent to an index of another list
-inside the list of lists
+"""0-lockboxes
 """
 
 
@@ -11,39 +8,38 @@ def canUnlockAll(boxes):
     values inside a list has an index corresponding to
     another list inside the list of lists
     """
-    index_list = []
+    open_boxes = boxes[0]
+    if len(open_boxes) == 0:
+        return False
 
-    def get_values(lst):
-        length = len(boxes) - 1
-        indexes = []
-        for val in lst:
-            if val > length:
-                continue
-            for i in range(len(boxes[val])):
-                indexes.append(boxes[val][i])
-            indexes.append(val)
-        indexes = list(set(indexes))
-        return indexes
-
-    index_list = get_values(boxes[0])
-
-    def compare_list(lst):
-        ref = True
-        sorted_list = sorted(lst)
-        for i in range(1, len(boxes)):
-            if i not in sorted_list:
-                ref = False
-                break
-
-        return ref
-
-    if compare_list(index_list):
+    if len(boxes) == 1:
         return True
 
+    flag = True
     for i in range(1, len(boxes)):
-        if i in index_list:
-            index_list.extend(get_values(boxes[i]))
-            index_list = list(set(index_list))
+        if flag is False:
+            break
+        if i in open_boxes:
+            flag = True
+        else:
+            flag = False
+    if flag is True:
+        return True
+
+    lst = []
+    for num in open_boxes:
+        if num in range(len(boxes)):
+            lst = lst + boxes[num]
+
+    open_boxes = open_boxes + lst
+
+    for i in range(1, len(boxes)):
+        if i in open_boxes:
+            lst = []
+            for num in boxes[i]:
+                if num in range(len(boxes)):
+                    lst = lst + boxes[num]
+            open_boxes = open_boxes + lst
         else:
             return False
     return True
