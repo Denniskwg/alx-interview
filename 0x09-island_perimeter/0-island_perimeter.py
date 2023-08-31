@@ -25,6 +25,8 @@ def island_perimeter(grid):
                     num = num + 1
                 if i < (len(grid) - 1) and grid[i + 1][j] == 0:
                     num = num + 1
+                if num == 4 and total > 0:
+                    num = 0
                 total = total + num
 
     return total
