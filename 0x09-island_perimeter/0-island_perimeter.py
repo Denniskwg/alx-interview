@@ -14,6 +14,9 @@ def island_perimeter(grid):
     """
     total = 0
     for i in range(len(grid)):
+        if i > 0 and sum(grid[i]) == 0:
+            total = 0
+            break
         for j in range(len(grid[i])):
             num = 0
             if grid[i][j] == 1:
