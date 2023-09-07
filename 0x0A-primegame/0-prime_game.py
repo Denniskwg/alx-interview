@@ -9,6 +9,8 @@ def isWinner(x, nums):
     the prime number and its multiples. nums is a list of
     numbers of maximum range for a list
     """
+    if x < 1 or not nums:
+        return None
     turn = 1
     dict_players = {'Ben': 0, 'Maria': 0}
     for i in nums:
