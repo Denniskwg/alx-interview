@@ -9,20 +9,19 @@ def isWinner(x, nums):
     the prime number and its multiples. nums is a list of
     numbers of maximum range for a list
     """
-    Maria = 0
-    Ben = 0
-    player = 1
+    turn = 1
     dict_players = {'Ben': 0, 'Maria': 0}
     for i in nums:
         arr = [j for j in range(1, i + 1)]
         length = len(arr)
+        player = ''
         while length > 1:
             for k in range(len(arr)):
                 if is_prime(arr[k]):
-                    if player % 2 == 0:
-                        Ben = Ben + 1
+                    if turn % 2 == 0:
+                        player = 'Ben'
                     else:
-                        Maria = Maria + 1
+                        player = 'Maria'
                     element = arr[k]
                     arr.pop(k)
                     length = length - 1
@@ -33,15 +32,12 @@ def isWinner(x, nums):
                             length = length - 1
                     for num in indexes:
                         arr.pop(num)
-                    player = player + 1
+                    turn = turn + 1
                     break
-        if Maria > Ben:
-            dict_players['Maria'] = dict_players['Maria'] + 1
-        else:
+        if player == 'Ben' or player == '':
             dict_players['Ben'] = dict_players['Ben'] + 1
-        Maria = 0
-        Ben = 0
-
+        if player == 'Maria':
+            dict_players['Maria'] = dict_players['Maria'] + 1
     if dict_players['Maria'] > dict_players['Ben']:
         return 'Maria'
     elif dict_players['Ben'] > dict_players['Maria']:
