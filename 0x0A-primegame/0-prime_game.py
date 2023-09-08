@@ -11,12 +11,12 @@ def isWinner(x, nums):
     """
     if x < 1 or not nums:
         return None
-    turn = 1
     dict_players = {'Ben': 0, 'Maria': 0}
     for i in nums:
         arr = [j for j in range(1, i + 1)]
         length = len(arr)
         player = ''
+        turn = 1
         while length > 1:
             for k in range(len(arr)):
                 if is_prime(arr[k]):
@@ -30,12 +30,13 @@ def isWinner(x, nums):
                     indexes = []
                     for num in range(len(arr)):
                         if arr[num] % element == 0:
-                            indexes.append(num)
+                            indexes.append(arr[num])
                             length = length - 1
-                    for num in indexes:
-                        arr.pop(num)
+                    arr = [x for x in arr if x not in indexes]
                     turn = turn + 1
                     break
+        if player == '':
+            player = 'Ben'
         if player == 'Ben' or player == '':
             dict_players['Ben'] = dict_players['Ben'] + 1
         if player == 'Maria':
